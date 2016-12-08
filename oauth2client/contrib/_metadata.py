@@ -21,6 +21,7 @@ import datetime
 import json
 
 import httplib2
+from retrying import retry
 from six.moves import http_client
 from six.moves.urllib import parse as urlparse
 
@@ -33,6 +34,7 @@ METADATA_ROOT = 'http://metadata.google.internal/computeMetadata/v1/'
 METADATA_HEADERS = {'Metadata-Flavor': 'Google'}
 
 
+@retry(wait_exponential_multiplier=1000, wait_exponential_max=10000, stop_max_delay=60000)
 def get(http_request, path, root=METADATA_ROOT, recursive=None):
     """Fetch a resource from the metadata server.
 

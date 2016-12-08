@@ -65,7 +65,9 @@ class TestMetadata(unittest2.TestCase):
         with self.assertRaises(httplib2.HttpLib2Error):
             _metadata.get(http_request, PATH)
 
-        http_request.assert_called_once_with(EXPECTED_URL, **EXPECTED_KWARGS)
+        # with current retry settings, a maximum of 9 requests are done
+        assert http_request.call_count == 9
+        http_request.assert_called_with(EXPECTED_URL, **EXPECTED_KWARGS)
 
     @mock.patch(
         'oauth2client.client._UTCNOW',

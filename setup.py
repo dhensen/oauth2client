@@ -39,6 +39,7 @@ install_requires = [
     'pyasn1-modules>=0.0.5',
     'rsa>=3.1.4',
     'six>=1.6.1',
+    'retrying>=1.3.3',
 ]
 
 long_desc = """The oauth2client is a client library for OAuth 2.0."""
